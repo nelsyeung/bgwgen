@@ -144,6 +144,7 @@ def create_pp_in(config, dirname='.'):
 def create_scf(config, dirname='.'):
     """Create 1-scf directory and its input files."""
     dirpath = os.path.join(dirname, '1-scf')
+    clean = os.path.join(dirpath, 'clean')
     override = {
         '&control': {
             'calculation': '\'scf\'',
@@ -160,6 +161,14 @@ def create_scf(config, dirname='.'):
 
     os.makedirs(dirpath)
     create_in(helpers.deep_merge(config, override), dirpath)
+
+    with open(clean, 'w') as f:
+        f.write('#!/bin/bash\n'
+                'rm -rf CRASH *out* charge* *.{igk,mix,wfc,save}* 2> '
+                '/dev/null\n'
+                )
+
+    helpers.make_executable(clean)
 
 
 def create_wfn(config, dirname='.'):

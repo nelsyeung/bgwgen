@@ -1,0 +1,2 @@
+#!/bin/bash
+rm -rf CRASH *out* charge* *.{igk,mix,wfc,save}* 2> /dev/null

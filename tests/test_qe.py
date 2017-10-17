@@ -104,13 +104,17 @@ def test_create_pp_in(tmpdir):
 
 def test_create_scf(tmpdir):
     """Creates a new directory '1-scf' and all its input files."""
-    file_in = tmpdir.join('1-scf', 'in')
-    expected_in = os.path.join(fixtures_dir, 'create_scf_in.expected')
+    dirname = '1-scf'
+    d = tmpdir.join(dirname)
+    expected_dir = os.path.join(fixtures_dir, dirname)
 
     qe.create_scf(config, tmpdir.realpath())
 
-    with open(expected_in, 'r') as f:
-        assert file_in.read() == f.read()
+    with open(os.path.join(expected_dir, 'in.expected'), 'r') as f:
+        assert d.join('in').read() == f.read()
+
+    with open(os.path.join(expected_dir, 'clean.expected'), 'r') as f:
+        assert d.join('clean').read() == f.read()
 
 
 def test_create_wfn(tmpdir):
