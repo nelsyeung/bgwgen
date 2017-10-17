@@ -1,0 +1,3 @@
+#!/bin/bash
+rm -rf CRASH *{paw,igk,wfc,log,out,.xmgr}* MoS2.save/K00* MoS2.save/*.UPF RHO \
+  WFN vxc.dat *.ps bands.dat* 2> /dev/null

@@ -1,0 +1,18 @@
+#!/bin/bash
+SEED='MoS2'
+
+for d in {2..7}-*/; do
+  cd $d
+  rm -rf ${SEED}.save
+  mkdir -p ${SEED}.save
+  ln -sf ../../1-scf/${SEED}.save/data-file.xml ${SEED}.save
+  ln -sf ../../1-scf/${SEED}.save/charge-density.dat ${SEED}.save
+  cd ..
+done
+
+for d in {3..7}-*/; do
+  cd $d
+  ln -sf ../2-wfn/clean clean
+  ln -sf ../2-wfn/get-kgrid get-kgrid
+  cd ..
+done

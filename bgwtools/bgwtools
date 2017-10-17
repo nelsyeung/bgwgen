@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import sys
+from bgwtools import bgw
+from bgwtools import parser
+from bgwtools import qe
+
+if __name__ == "__main__":
+    config = parser.parse(sys.argv[1])
+    qe.create_qe(config)
+    bgw.create_bgw(config)

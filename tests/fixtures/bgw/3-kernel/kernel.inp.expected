@@ -1,0 +1,7 @@
+screened_coulomb_cutoff 35.0
+bare_coulomb_cutoff 100.0
+number_val_bands 14
+number_cond_bands 14
+cell_slab_truncation
+use_symmetries_coarse_grid
+screening_semiconductor

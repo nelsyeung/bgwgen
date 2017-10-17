@@ -1,0 +1,12 @@
+&input_pw2bgw
+prefix = 'MoS2'
+wfng_flag = .true.
+wfng_file = 'WFN'
+wfng_kgrid = .true.
+wfng_nk1 = 24
+wfng_nk2 = 24
+wfng_nk3 = 1
+wfng_dk1 = 0.024
+wfng_dk2 = 0.024
+wfng_dk3 = 0.0
+/

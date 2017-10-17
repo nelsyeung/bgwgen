@@ -1,0 +1,4 @@
+#!/bin/bash
+rm *.log *.out absorption_noeh.dat bandstructure.dat dtmat* \
+  eigenvalues_noeh.dat dcmat_norm.dat dvmat_norm.dat epsdiag.dat vmtxel \
+  eqp.dat eqp_q.dat absorption_eh.dat eigenvalues.dat eigenvectors 2> /dev/null
