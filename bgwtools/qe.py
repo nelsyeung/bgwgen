@@ -207,7 +207,8 @@ def create_wfn(config, dirname='.'):
 
     with open(get_kgrid, 'w') as f:
         f.write('#!/bin/bash\n'
-                'kgrid.x kgrid.in kgrid.out kgrid.log\n')
+                'kgrid.x kgrid.in kgrid.out kgrid.log\n'
+                'sed -n 3,99999p kgrid.out >> in\n')
 
     with open(clean, 'w') as f:
         f.write('#!/bin/bash\n'
