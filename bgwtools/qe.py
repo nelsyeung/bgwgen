@@ -83,8 +83,8 @@ def create_kgrid_in(config, dirname='.'):
     with open(file_in, 'a') as f:
         f.write(nk + '\n')
         f.write(dk + '\n')
-        f.write(config['kgrid']['q-shift'] + '\n\n')
-        f.write(config['kgrid']['cell'] + '\n')
+        f.write(config['kgrid']['q-shift'].strip() + '\n\n')
+        f.write(config['kgrid']['cell'].strip() + '\n')
         f.write(nat + '\n')
         f.write(positions)
         f.write('20 20 20\n')
