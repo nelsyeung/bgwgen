@@ -105,6 +105,7 @@ def create_in(config, dirname='.'):
         f.write(namelist_block(config, '&control'))
         f.write(namelist_block(config, '&system'))
         f.write(namelist_block(config, '&electrons'))
+        f.write(card_block(config, 'CELL_PARAMETERS'))
         f.write(card_block(config, 'ATOMIC_SPECIES'))
         f.write(card_block(config, 'ATOMIC_POSITIONS'))
         f.write(card_block(config, 'K_POINTS'))
