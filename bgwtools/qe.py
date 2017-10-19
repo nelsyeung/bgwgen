@@ -87,7 +87,7 @@ def create_kgrid_in(config, dirname='.'):
         f.write(config['kgrid']['cell'].strip() + '\n')
         f.write(nat + '\n')
         f.write(positions)
-        f.write('20 20 20\n')
+        f.write('0 0 0\n')
         f.write('.false.\n')
 
 
