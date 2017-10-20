@@ -113,6 +113,9 @@ def test_create_epsilon(tmpdir):
 
     bgw.create_epsilon(config, tmpdir.realpath())
 
+    with open(os.path.join(expected_dir, 'get-kgrid.expected'), 'r') as f:
+        assert d.join('get-kgrid').read() == f.read()
+
     with open(os.path.join(expected_dir, 'epsilon.inp.expected'), 'r') as f:
         assert d.join('epsilon.inp').read() == f.read()
 

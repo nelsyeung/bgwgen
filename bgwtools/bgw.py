@@ -56,18 +56,63 @@ def create_link_files(config, dirname='.'):
     helpers.make_executable(file)
 
 
+def create_kgrid_in(config, dirname='.'):
+    """Create a kgrid.in input file following the config."""
+    file_in = os.path.join(dirname, 'kgrid.in')
+    nat = str(helpers.num_lines(config['ATOMIC_POSITIONS']['value']))
+    k_points = config['K_POINTS']['value'].strip().split()
+    nk = ' '.join(k_points[:3])
+    dk = ' '.join([str(float(k) * 0.5) for k in k_points[3:]])
+    atomic_species = config['ATOMIC_SPECIES']['value'].strip().splitlines()
+    elements = [s.split()[0] for s in atomic_species]
+    positions = ''
+
+    for atom in config['ATOMIC_POSITIONS']['value'].strip().splitlines():
+        atom_split = atom.split()
+        element = atom_split[0]
+        positions += '{:d} {}\n'.format(elements.index(element) + 1,
+                                        ' '.join(atom_split[1:]))
+
+    with open(file_in, 'a') as f:
+        f.write(nk + '\n')
+        f.write(dk + '\n')
+        f.write(config['kgrid']['q-shift'].strip() + '\n\n')
+        f.write(config['kgrid']['cell'].strip() + '\n')
+        f.write(nat + '\n')
+        f.write(positions)
+        f.write('20 20 20\n')
+        f.write('.false.\n')
+
+
 def create_epsilon(config, dirname='.'):
     """Create 1-epsilon directory and its input files."""
     dirpath = os.path.join(dirname, '1-epsilon')
+    get_kgrid = os.path.join(dirpath, 'get-kgrid')
     inp = os.path.join(dirpath, 'epsilon.inp')
     clean = os.path.join(dirpath, 'clean')
+    k_points = config['K_POINTS']['value'].strip().split()
     override = {
         'epsilon': {
             'number_bands': str(int(config['&system']['nbnd']) - 1),
         },
     }
+    kgrid_override = {
+        'K_POINTS': {
+            'value': '{} 0 0 0'.format(' '.join(k_points[:3]))
+        },
+        'kgrid': {
+            'q-shift': '0.0 0.0 0.0',
+        },
+    }
 
     os.makedirs(dirpath)
+
+    create_kgrid_in(helpers.deep_merge(config, kgrid_override), dirpath)
+
+    with open(get_kgrid, 'w') as f:
+        f.write('#!/bin/bash\n'
+                'kgrid.x kgrid.in kgrid.out kgrid.log\n'
+                )
 
     with open(inp, 'a') as f:
         f.write(input_block(helpers.deep_merge(config, override), 'epsilon'))
@@ -81,6 +126,7 @@ def create_epsilon(config, dirname='.'):
                 '2> /dev/null\n'
                 )
 
+    helpers.make_executable(get_kgrid)
     helpers.make_executable(clean)
 
 
