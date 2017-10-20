@@ -1,2 +1,3 @@
 #!/bin/bash
 kgrid.x kgrid.in kgrid.out kgrid.log
+sed -n 2,99999p kgrid.out >> in

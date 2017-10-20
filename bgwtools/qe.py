@@ -30,7 +30,10 @@ def card_block(config, card):
         block += ' ' + config[card]['option']
 
     block += '\n'
-    block += config[card]['value'].strip() + '\n'
+    value = config[card]['value'].strip()
+
+    if value:
+        block += value + '\n'
 
     return block
 
@@ -177,11 +180,6 @@ def create_wfn(config, dirname='.'):
     dirpath = os.path.join(dirname, '2-wfn')
     get_kgrid = os.path.join(dirpath, 'get-kgrid')
     clean = os.path.join(dirpath, 'clean')
-    k_points = config['K_POINTS']['value'].strip().split()
-    nk = [int(k_points[i]) for i in range(3)]
-    num_k_points = 1
-    for k in nk[:3]:
-        num_k_points *= k
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -189,7 +187,7 @@ def create_wfn(config, dirname='.'):
         },
         'K_POINTS': {
             'option': 'crystal',
-            'value': str(num_k_points),
+            'value': '',
         },
     }
     kgrid_override = {
@@ -208,7 +206,7 @@ def create_wfn(config, dirname='.'):
     with open(get_kgrid, 'w') as f:
         f.write('#!/bin/bash\n'
                 'kgrid.x kgrid.in kgrid.out kgrid.log\n'
-                'sed -n 3,99999p kgrid.out >> in\n')
+                'sed -n 2,99999p kgrid.out >> in\n')
 
     with open(clean, 'w') as f:
         f.write('#!/bin/bash\n'
@@ -224,11 +222,6 @@ def create_wfn(config, dirname='.'):
 def create_wfnq(config, dirname='.'):
     """Create 3-wfnq directory and its input files."""
     dirpath = os.path.join(dirname, '3-wfnq')
-    k_points = config['K_POINTS']['value'].strip().split()
-    nk = [int(k_points[i]) for i in range(3)]
-    num_k_points = 1
-    for k in nk[:3]:
-        num_k_points *= k
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -239,7 +232,7 @@ def create_wfnq(config, dirname='.'):
         },
         'K_POINTS': {
             'option': 'crystal',
-            'value': str(num_k_points),
+            'value': '',
         },
     }
     pp_in_config = helpers.deep_merge(config, {})
@@ -257,9 +250,6 @@ def create_wfn_co(config, dirname='.'):
     k_points = config['K_POINTS']['value'].strip().split()
     nk = [int(int(k_points[i]) / 2) if int(k_points[i]) != 1 else
           int(k_points[i]) for i in range(3)]
-    num_k_points = 1
-    for k in nk[:3]:
-        num_k_points *= k
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -267,7 +257,7 @@ def create_wfn_co(config, dirname='.'):
         },
         'K_POINTS': {
             'option': 'crystal',
-            'value': str(num_k_points),
+            'value': '',
         },
     }
     kgrid_override = {
@@ -300,9 +290,6 @@ def create_wfn_fi(config, dirname='.'):
     k_points = config['K_POINTS']['value'].strip().split()
     nk = [int(int(k_points[i]) * 2) if int(k_points[i]) != 1 else
           int(k_points[i]) for i in range(3)]
-    num_k_points = 1
-    for k in nk[:3]:
-        num_k_points *= k
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -310,7 +297,7 @@ def create_wfn_fi(config, dirname='.'):
         },
         'K_POINTS': {
             'option': 'crystal',
-            'value': str(num_k_points),
+            'value': '',
         },
     }
     kgrid_override = {
@@ -343,9 +330,6 @@ def create_wfnq_fi(config, dirname='.'):
 
     nk = [int(int(k_points[i]) * 2) if int(k_points[i]) != 1 else
           int(k_points[i]) for i in range(3)]
-    num_k_points = 1
-    for k in nk[:3]:
-        num_k_points *= k
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -356,7 +340,7 @@ def create_wfnq_fi(config, dirname='.'):
         },
         'K_POINTS': {
             'option': 'crystal',
-            'value': str(num_k_points),
+            'value': '',
         },
     }
     kgrid_override = {
