@@ -1,2 +1,0 @@
-#!/bin/bash
-kgrid.x kgrid.in kgrid.out kgrid.log
