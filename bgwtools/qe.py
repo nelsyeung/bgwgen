@@ -247,9 +247,7 @@ def create_wfnq(config, dirname='.'):
 def create_wfn_co(config, dirname='.'):
     """Create 4-wfn_co directory and its input files."""
     dirpath = os.path.join(dirname, '4-wfn_co')
-    k_points = config['K_POINTS']['value'].strip().split()
-    nk = [int(int(k_points[i]) / 2) if int(k_points[i]) != 1 else
-          int(k_points[i]) for i in range(3)]
+    k_points = config['K_POINTS']['value'].strip().split()[:3]
     override = {
         '&control': {
             'calculation': '\'bands\'',
@@ -262,7 +260,7 @@ def create_wfn_co(config, dirname='.'):
     }
     kgrid_override = {
         'K_POINTS': {
-            'value': '{} 0 0 0'.format(' '.join([str(k) for k in nk]))
+            'value': '{} 0 0 0'.format(' '.join([str(k) for k in k_points]))
         },
         'kgrid': {
             'q-shift': '0.0 0.0 0.0',
