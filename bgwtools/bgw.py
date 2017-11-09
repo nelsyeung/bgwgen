@@ -61,16 +61,11 @@ def create_epsilon(config, dirname='.'):
     dirpath = os.path.join(dirname, '1-epsilon')
     inp = os.path.join(dirpath, 'epsilon.inp')
     clean = os.path.join(dirpath, 'clean')
-    override = {
-        'epsilon': {
-            'number_bands': str(int(config['&system']['nbnd']) - 1),
-        },
-    }
 
     os.makedirs(dirpath)
 
     with open(inp, 'a') as f:
-        f.write(input_block(helpers.deep_merge(config, override), 'epsilon'))
+        f.write(input_block(config, 'epsilon'))
         f.write('\nbegin qpoints\n')
         f.write(config['kgrid']['q-shift'] + ' 1.0 1\n')
         f.write('end\n')
