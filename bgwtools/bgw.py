@@ -49,6 +49,7 @@ def create_link_files(config, dirname='.'):
                 'ln -sf ../1-epsilon/epsmat 4-absorption\n'
                 'ln -sf ../2.1-sigma/eqp1.dat ./2.2-inteqp/eqp_co.dat\n'
                 'ln -sf ../2.1-sigma/eqp1.dat 4-absorption\n'
+                'ln -sf ../2.2-inteqp/eqp.dat 4-absorption/eqp_co.dat\n'
                 'ln -sf ../3-kernel/bsedmat 4-absorption\n'
                 'ln -sf ../3-kernel/bsexmat 4-absorption\n'
                 )

@@ -22,5 +22,6 @@ ln -sf ../1-epsilon/epsmat 3-kernel
 ln -sf ../1-epsilon/epsmat 4-absorption
 ln -sf ../2.1-sigma/eqp1.dat ./2.2-inteqp/eqp_co.dat
 ln -sf ../2.1-sigma/eqp1.dat 4-absorption
+ln -sf ../2.2-inteqp/eqp.dat 4-absorption/eqp_co.dat
 ln -sf ../3-kernel/bsedmat 4-absorption
 ln -sf ../3-kernel/bsexmat 4-absorption
