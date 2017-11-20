@@ -194,18 +194,13 @@ def create_wfn(config, dirname='.'):
         'kgrid': {
             'q-shift': '0.0 0.0 0.0',
         },
-        'pp_in': {
-            'rhog_flag': '.true.',
-            'rhog_file': '\'RHO\'',
-            'vxcg_flag': '.false.',
-            'vxc_flag': '.true.',
-            'vxc_file': '\'vxc.dat\'',
-        },
     }
+    pp_in_config = helpers.deep_merge(config, kgrid_override)
+    pp_in_config.pop('pp_in', None)
 
     os.makedirs(dirpath)
     create_kgrid_in(helpers.deep_merge(config, kgrid_override), dirpath)
-    create_pp_in(helpers.deep_merge(config, kgrid_override), dirpath)
+    create_pp_in(pp_in_config, dirpath)
     create_in(helpers.deep_merge(config, override), dirpath)
 
     with open(get_kgrid, 'w') as f:
@@ -278,12 +273,10 @@ def create_wfn_co(config, dirname='.'):
             'vxc_file': '\'vxc.dat\'',
         },
     }
-    pp_in_config = helpers.deep_merge(config, kgrid_override)
-    pp_in_config.pop('pp_in', None)
 
     os.makedirs(dirpath)
     create_kgrid_in(helpers.deep_merge(config, kgrid_override), dirpath)
-    create_pp_in(pp_in_config, dirpath)
+    create_pp_in(helpers.deep_merge(config, kgrid_override), dirpath)
     create_in(helpers.deep_merge(config, override), dirpath)
 
 
