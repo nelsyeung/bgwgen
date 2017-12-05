@@ -1,0 +1,19 @@
+language: python
+
+python:
+    - "3.3"
+    - "3.4"
+    - "3.5"
+    - "3.6"
+
+install: pip install flake8 coverage coveralls
+
+script: ./runtests.sh
+
+after_success:
+coveralls
+
+notifications:
+email:
+on_success: never
+on_failure: always
