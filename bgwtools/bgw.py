@@ -87,7 +87,6 @@ def create_sigma(config, dirname='.'):
     clean = os.path.join(dirpath, 'clean')
     override = {
         'sigma': {
-            'number_bands': str(int(config['&system']['nbnd']) - 1),
             'band_index_min': config['pp_in']['vxc_diag_nmin'],
             'band_index_max': config['pp_in']['vxc_diag_nmax'],
         },
