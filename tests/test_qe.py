@@ -213,21 +213,6 @@ def test_create_wfnq_fi(tmpdir):
         assert d.join('pp_in').read() == f.read()
 
 
-def test_create_bands(tmpdir):
-    """Creates a new directory '7-bands' and all its input files."""
-    dirname = '7-bands'
-    d = tmpdir.join(dirname)
-    expected_dir = os.path.join(fixtures_dir, dirname)
-
-    qe.create_bands(config, tmpdir.realpath())
-
-    with open(os.path.join(expected_dir, 'in.expected'), 'r') as f:
-        assert d.join('in').read() == f.read()
-
-    with open(os.path.join(expected_dir, 'bands.in.expected'), 'r') as f:
-        assert d.join('bands.in').read() == f.read()
-
-
 def test_create_qe(tmpdir):
     """Create a new directory 'qe' and all its directories."""
     qedir = tmpdir.join('qe')
@@ -243,4 +228,3 @@ def test_create_qe(tmpdir):
     assert os.path.isdir(qedir.join('4-wfn_co'))
     assert os.path.isdir(qedir.join('5-wfn_fi'))
     assert os.path.isdir(qedir.join('6-wfnq_fi'))
-    assert os.path.isdir(qedir.join('7-bands'))

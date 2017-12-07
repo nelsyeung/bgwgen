@@ -46,7 +46,7 @@ def create_link_files(config, dirname='.'):
         f.write('#!/bin/bash\n')
         f.write('SEED={}\n\n'.format(config['&control']['prefix']))
 
-        f.write('for d in {2..7}-*/; do\n'
+        f.write('for d in {2..6}-*/; do\n'
                 '  cd $d\n'
                 '  rm -rf ${SEED}.save\n'
                 '  mkdir -p ${SEED}.save\n'
@@ -56,7 +56,7 @@ def create_link_files(config, dirname='.'):
                 '${SEED}.save\n'
                 '  cd ..\n'
                 'done\n\n'
-                'for d in {3..7}-*/; do\n'
+                'for d in {3..6}-*/; do\n'
                 '  cd $d\n'
                 '  ln -sf ../2-wfn/clean clean\n'
                 '  ln -sf ../2-wfn/get-kgrid get-kgrid\n'
@@ -359,30 +359,6 @@ def create_wfnq_fi(config, dirname='.'):
     create_in(helpers.deep_merge(config, override), dirpath)
 
 
-def create_bands(config, dirname='.'):
-    """Create 7-bands directory and its input files."""
-    dirpath = os.path.join(dirname, '7-bands')
-    override = {
-        '&control': {
-            'calculation': '\'bands\'',
-            'wf_collect': '.true.',
-        },
-        'K_POINTS': {
-            'option': 'crystal',
-            'value': '',
-        },
-    }
-
-    os.makedirs(dirpath)
-    create_in(helpers.deep_merge(config, override), dirpath)
-
-    with open(os.path.join(dirpath, 'bands.in'), 'a') as f:
-        f.write('&bands\n')
-        f.write('prefix = {}\n'.format(config['&control']['prefix']))
-        f.write('filband = \'bands.dat\'\n')
-        f.write('/\n')
-
-
 def create_qe(config, dirname='.'):
     dirpath = os.path.join(dirname, 'qe')
 
@@ -394,4 +370,3 @@ def create_qe(config, dirname='.'):
     create_wfn_co(config, dirpath)
     create_wfn_fi(config, dirpath)
     create_wfnq_fi(config, dirpath)
-    create_bands(config, dirpath)
