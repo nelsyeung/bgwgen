@@ -1,5 +1,8 @@
 .. image:: https://travis-ci.org/nelsyeung/bgwtools.svg?branch=master
     :target: https://travis-ci.org/nelsyeung/bgwtools
+.. image:: https://coveralls.io/repos/github/nelsyeung/bgwtools/badge.svg
+    :target: https://coveralls.io/github/nelsyeung/bgwtools
+
 BerkeleyGW Tools
 ================
 Generate BerkeleyGW and QuantumESPRESSO simulation files from a single input
