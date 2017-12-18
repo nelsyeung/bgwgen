@@ -3,25 +3,20 @@ QE="../../qe"
 
 ln -sf $QE/2-wfn/WFN 1-epsilon/WFN
 ln -sf $QE/3-wfnq/WFN 1-epsilon/WFNq
-ln -sf $QE/4-wfn_co/RHO 2.1-sigma/RHO
-ln -sf $QE/4-wfn_co/WFN 2.1-sigma/WFN_inner
-ln -sf $QE/4-wfn_co/WFN 2.2-inteqp/WFN_co
+ln -sf $QE/4-wfn_co/RHO 2-sigma/RHO
+ln -sf $QE/4-wfn_co/WFN 2-sigma/WFN_inner
 ln -sf $QE/4-wfn_co/WFN 3-kernel/WFN_co
 ln -sf $QE/4-wfn_co/WFN 4-absorption/WFN_co
-ln -sf $QE/4-wfn_co/vxc.dat 2.1-sigma/vxc.dat
+ln -sf $QE/4-wfn_co/vxc.dat 2-sigma/vxc.dat
 ln -sf $QE/5-wfn_fi/WFN 4-absorption/WFN_fi
-ln -sf $QE/5-wfn_fi/WFN 2.2-inteqp/WFN_fi
 ln -sf $QE/6-wfnq_fi/WFN 4-absorption/WFNq_fi
-ln -sf $QE/6-wfnq_fi/WFN 2.2-inteqp/WFNq_fi
 
-ln -sf ../1-epsilon/eps0mat 2.1-sigma
+ln -sf ../1-epsilon/eps0mat 2-sigma
 ln -sf ../1-epsilon/eps0mat 3-kernel
 ln -sf ../1-epsilon/eps0mat 4-absorption
-ln -sf ../1-epsilon/epsmat 2.1-sigma
+ln -sf ../1-epsilon/epsmat 2-sigma
 ln -sf ../1-epsilon/epsmat 3-kernel
 ln -sf ../1-epsilon/epsmat 4-absorption
-ln -sf ../2.1-sigma/eqp1.dat ./2.2-inteqp/eqp_co.dat
-ln -sf ../2.1-sigma/eqp1.dat 4-absorption
-ln -sf ../2.2-inteqp/eqp.dat 4-absorption/eqp_co.dat
+ln -sf ../2-sigma/eqp1.dat 4-absorption/eqp_co.dat
 ln -sf ../3-kernel/bsedmat 4-absorption
 ln -sf ../3-kernel/bsexmat 4-absorption

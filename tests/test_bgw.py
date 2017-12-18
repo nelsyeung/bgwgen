@@ -123,8 +123,8 @@ def test_create_epsilon(tmpdir):
 
 
 def test_create_sigma(tmpdir):
-    """Creates a new directory '2.1-sigma' and all its input files."""
-    dirname = '2.1-sigma'
+    """Creates a new directory '2-sigma' and all its input files."""
+    dirname = '2-sigma'
     d = tmpdir.join(dirname)
     expected_dir = os.path.join(fixtures_dir, dirname)
 
@@ -132,21 +132,6 @@ def test_create_sigma(tmpdir):
 
     with open(os.path.join(expected_dir, 'sigma.inp.expected'), 'r') as f:
         assert d.join('sigma.inp').read() == f.read()
-
-    with open(os.path.join(expected_dir, 'clean.expected'), 'r') as f:
-        assert d.join('clean').read() == f.read()
-
-
-def test_create_inteqp(tmpdir):
-    """Creates a new directory '2.2-inteqp' and all its input files."""
-    dirname = '2.2-inteqp'
-    d = tmpdir.join(dirname)
-    expected_dir = os.path.join(fixtures_dir, dirname)
-
-    bgw.create_inteqp(config, tmpdir.realpath())
-
-    with open(os.path.join(expected_dir, 'inteqp.inp.expected'), 'r') as f:
-        assert d.join('inteqp.inp').read() == f.read()
 
     with open(os.path.join(expected_dir, 'clean.expected'), 'r') as f:
         assert d.join('clean').read() == f.read()
@@ -192,7 +177,6 @@ def test_create_bgw(tmpdir):
     assert os.path.isfile(bgwdir.join('link-files'))
     assert os.path.isdir(bgwdir)
     assert os.path.isdir(bgwdir.join('1-epsilon'))
-    assert os.path.isdir(bgwdir.join('2.1-sigma'))
-    assert os.path.isdir(bgwdir.join('2.2-inteqp'))
+    assert os.path.isdir(bgwdir.join('2-sigma'))
     assert os.path.isdir(bgwdir.join('3-kernel'))
     assert os.path.isdir(bgwdir.join('4-absorption'))

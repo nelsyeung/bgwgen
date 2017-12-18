@@ -1,2 +1,0 @@
-#!/bin/bash
-rm chi*.dat x.dat *.{log,out} ch_converge.dat 2> /dev/null

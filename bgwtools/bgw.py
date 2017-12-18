@@ -30,26 +30,21 @@ def create_link_files(config, dirname='.'):
                 '\n'
                 'ln -sf $QE/2-wfn/WFN 1-epsilon/WFN\n'
                 'ln -sf $QE/3-wfnq/WFN 1-epsilon/WFNq\n'
-                'ln -sf $QE/4-wfn_co/RHO 2.1-sigma/RHO\n'
-                'ln -sf $QE/4-wfn_co/WFN 2.1-sigma/WFN_inner\n'
-                'ln -sf $QE/4-wfn_co/WFN 2.2-inteqp/WFN_co\n'
+                'ln -sf $QE/4-wfn_co/RHO 2-sigma/RHO\n'
+                'ln -sf $QE/4-wfn_co/WFN 2-sigma/WFN_inner\n'
                 'ln -sf $QE/4-wfn_co/WFN 3-kernel/WFN_co\n'
                 'ln -sf $QE/4-wfn_co/WFN 4-absorption/WFN_co\n'
-                'ln -sf $QE/4-wfn_co/vxc.dat 2.1-sigma/vxc.dat\n'
+                'ln -sf $QE/4-wfn_co/vxc.dat 2-sigma/vxc.dat\n'
                 'ln -sf $QE/5-wfn_fi/WFN 4-absorption/WFN_fi\n'
-                'ln -sf $QE/5-wfn_fi/WFN 2.2-inteqp/WFN_fi\n'
                 'ln -sf $QE/6-wfnq_fi/WFN 4-absorption/WFNq_fi\n'
-                'ln -sf $QE/6-wfnq_fi/WFN 2.2-inteqp/WFNq_fi\n'
                 '\n'
-                'ln -sf ../1-epsilon/eps0mat 2.1-sigma\n'
+                'ln -sf ../1-epsilon/eps0mat 2-sigma\n'
                 'ln -sf ../1-epsilon/eps0mat 3-kernel\n'
                 'ln -sf ../1-epsilon/eps0mat 4-absorption\n'
-                'ln -sf ../1-epsilon/epsmat 2.1-sigma\n'
+                'ln -sf ../1-epsilon/epsmat 2-sigma\n'
                 'ln -sf ../1-epsilon/epsmat 3-kernel\n'
                 'ln -sf ../1-epsilon/epsmat 4-absorption\n'
-                'ln -sf ../2.1-sigma/eqp1.dat ./2.2-inteqp/eqp_co.dat\n'
-                'ln -sf ../2.1-sigma/eqp1.dat 4-absorption\n'
-                'ln -sf ../2.2-inteqp/eqp.dat 4-absorption/eqp_co.dat\n'
+                'ln -sf ../2-sigma/eqp1.dat 4-absorption/eqp_co.dat\n'
                 'ln -sf ../3-kernel/bsedmat 4-absorption\n'
                 'ln -sf ../3-kernel/bsexmat 4-absorption\n'
                 )
@@ -81,8 +76,8 @@ def create_epsilon(config, dirname='.'):
 
 
 def create_sigma(config, dirname='.'):
-    """Create 2.1-sigma directory and its input files."""
-    dirpath = os.path.join(dirname, '2.1-sigma')
+    """Create 2-sigma directory and its input files."""
+    dirpath = os.path.join(dirname, '2-sigma')
     inp = os.path.join(dirpath, 'sigma.inp')
     clean = os.path.join(dirpath, 'clean')
 
@@ -97,25 +92,6 @@ def create_sigma(config, dirname='.'):
         f.write('#!/bin/bash\n'
                 'rm eqp*.dat chi*.dat x.dat *.{log,out} ch_converge.dat 2> '
                 '/dev/null\n'
-                )
-
-    helpers.make_executable(clean)
-
-
-def create_inteqp(config, dirname='.'):
-    """Create 2.2-inteqp directory and its input files."""
-    dirpath = os.path.join(dirname, '2.2-inteqp')
-    inp = os.path.join(dirpath, 'inteqp.inp')
-    clean = os.path.join(dirpath, 'clean')
-
-    os.makedirs(dirpath)
-
-    with open(inp, 'a') as f:
-        f.write(input_block(config, 'inteqp'))
-
-    with open(clean, 'w') as f:
-        f.write('#!/bin/bash\n'
-                'rm chi*.dat x.dat *.{log,out} ch_converge.dat 2> /dev/null\n'
                 )
 
     helpers.make_executable(clean)
@@ -184,6 +160,5 @@ def create_bgw(config, dirname='.'):
     create_link_files(config, dirpath)
     create_epsilon(config, dirpath)
     create_sigma(config, dirpath)
-    create_inteqp(config, dirpath)
     create_kernel(config, dirpath)
     create_absorption(config, dirpath)
