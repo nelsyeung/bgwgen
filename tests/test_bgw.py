@@ -48,6 +48,8 @@ config = {
         'cell_slab_truncation': '',
     },
     'sigma': {
+        'band_index_min': '1',
+        'band_index_max': '44',
         'screened_coulomb_cutoff': '5.0',
         'bare_coulomb_cutoff': '45.0',
         'cell_slab_truncation': '',

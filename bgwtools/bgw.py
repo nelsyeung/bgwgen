@@ -85,17 +85,11 @@ def create_sigma(config, dirname='.'):
     dirpath = os.path.join(dirname, '2.1-sigma')
     inp = os.path.join(dirpath, 'sigma.inp')
     clean = os.path.join(dirpath, 'clean')
-    override = {
-        'sigma': {
-            'band_index_min': config['pp_in']['vxc_diag_nmin'],
-            'band_index_max': config['pp_in']['vxc_diag_nmax'],
-        },
-    }
 
     os.makedirs(dirpath)
 
     with open(inp, 'a') as f:
-        f.write(input_block(helpers.deep_merge(config, override), 'sigma'))
+        f.write(input_block(config, 'sigma'))
         f.write('\nbegin kpoints\n')
         f.write('end\n')
 
