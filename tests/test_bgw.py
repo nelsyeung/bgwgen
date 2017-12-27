@@ -55,16 +55,6 @@ config = {
         'cell_slab_truncation': '',
         'screening_semiconductor': '',
     },
-    'inteqp': {
-        'number_val_bands_coarse': '14',
-        'number_cond_bands_coarse': '14',
-        'number_val_bands_fine': '2',
-        'number_cond_bands_fine': '2',
-        'no_symmetries_fine_grid': '',
-        'no_symmetries_shifted_grid': '',
-        'use_symmetries_coarse_grid': '',
-        'use_momentum': '',
-    },
     'kernel': {
         'screened_coulomb_cutoff': '35.0',
         'bare_coulomb_cutoff': '100.0',
@@ -75,6 +65,10 @@ config = {
         'screening_semiconductor': '',
     },
     'absorption': {
+        'number_val_bands_coarse': '14',
+        'number_cond_bands_coarse': '14',
+        'number_val_bands_fine': '2',
+        'number_cond_bands_fine': '2',
         'diagonalization': '',
         'use_symmetries_coarse_grid': '',
         'use_symmetries_fine_grid': '',

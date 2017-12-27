@@ -121,24 +121,11 @@ def create_absorption(config, dirname='.'):
     dirpath = os.path.join(dirname, '4-absorption')
     inp = os.path.join(dirpath, 'absorption.inp')
     clean = os.path.join(dirpath, 'clean')
-    override = {
-        'absorption': {
-            'number_val_bands_coarse':
-                config['inteqp']['number_val_bands_coarse'],
-            'number_cond_bands_coarse':
-                config['inteqp']['number_cond_bands_coarse'],
-            'number_val_bands_fine':
-                config['inteqp']['number_val_bands_fine'],
-            'number_cond_bands_fine':
-            config['inteqp']['number_cond_bands_fine'],
-        },
-    }
 
     os.makedirs(dirpath)
 
     with open(inp, 'a') as f:
-        f.write(input_block(helpers.deep_merge(config, override),
-                            'absorption'))
+        f.write(input_block(config, 'absorption'))
 
     with open(clean, 'w') as f:
         f.write('#!/bin/bash\n'
