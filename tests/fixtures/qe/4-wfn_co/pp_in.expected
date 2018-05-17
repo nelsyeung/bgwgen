@@ -1,7 +1,6 @@
 &input_pw2bgw
 prefix = 'MoS2'
 wfng_flag = .true.
-wfng_file = 'WFN'
 wfng_kgrid = .true.
 wfng_nk1 = 12
 wfng_nk2 = 12

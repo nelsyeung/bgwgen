@@ -127,7 +127,6 @@ def create_pp_in(config, dirname='.'):
         f.write('&input_pw2bgw\n')
         f.write('prefix = {}\n'.format(config['&control']['prefix']))
         f.write('wfng_flag = .true.\n'
-                'wfng_file = \'WFN\'\n'
                 'wfng_kgrid = .true.\n'
                 )
         f.write('wfng_nk1 = {}\n'.format(nk[0]))
