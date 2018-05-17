@@ -10,10 +10,7 @@ wfng_dk1 = 0.0
 wfng_dk2 = 0.0
 wfng_dk3 = 0.0
 rhog_flag = .true.
-rhog_file = 'RHO'
-vxcg_flag = .false.
 vxc_flag = .true.
-vxc_file = 'vxc.dat'
 vxc_diag_nmin = 1
 vxc_diag_nmax = 44
 /

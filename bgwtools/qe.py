@@ -267,10 +267,7 @@ def create_wfn_co(config, dirname='.'):
         },
         'pp_in': {
             'rhog_flag': '.true.',
-            'rhog_file': '\'RHO\'',
-            'vxcg_flag': '.false.',
             'vxc_flag': '.true.',
-            'vxc_file': '\'vxc.dat\'',
         },
     }
 
