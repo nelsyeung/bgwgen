@@ -1,6 +1,6 @@
 import copy
 import os
-from bgwtools import qe
+from bgwgen import qe
 
 fixtures_dir = os.path.join('tests', 'fixtures', 'qe')
 

@@ -2,9 +2,9 @@
 import os
 import shutil
 import sys
-from bgwtools import bgw
-from bgwtools import parser
-from bgwtools import qe
+from bgwgen import bgw
+from bgwgen import parser
+from bgwgen import qe
 
 
 def copy_templates(current='.'):

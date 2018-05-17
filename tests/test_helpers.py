@@ -1,6 +1,6 @@
 import os
 import stat
-from bgwtools import helpers
+from bgwgen import helpers
 
 
 def test_deep_merge():

@@ -1,6 +1,6 @@
 [run]
 branch = False
-source = bgwtools
+source = bgwgen
 
 [report]
 fail_under = 100

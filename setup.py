@@ -1,15 +1,15 @@
 from setuptools import setup
 
-setup(name='bgwtools',
+setup(name='bgwgen',
       version='0.1.0',
       description='Generate BerkeleyGW simulation files from a single input',
-      url='http://github.com/nelsyeung/bgwtools',
+      url='http://github.com/nelsyeung/bgwgen',
       author='Nelson Yeung',
       author_email='nelsyeung@icloud.com',
       license='MIT',
-      packages=['bgwtools'],
+      packages=['bgwgen'],
       zip_safe=False,
-      scripts=['bgwtools/bgwtools'],
+      scripts=['bgwgen/bgwgen'],
       classifiers=[
           'Intended Audience :: Developers',
           'License :: OSI Approved :: MIT License',

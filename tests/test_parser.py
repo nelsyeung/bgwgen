@@ -1,12 +1,12 @@
 import os
-from bgwtools import parser
+from bgwgen import parser
 
 fixtures_dir = os.path.join('tests', 'fixtures')
 
 
 def test_parse():
     """parse function parses all settings."""
-    input_file = os.path.join(fixtures_dir, 'bgwtools.ini')
+    input_file = os.path.join(fixtures_dir, 'bgwgen.ini')
     config = parser.parse(input_file)
     expected = {
         '&control': {

@@ -1,5 +1,5 @@
 import os
-from bgwtools import bgw
+from bgwgen import bgw
 
 fixtures_dir = os.path.join('tests', 'fixtures', 'bgw')
 
