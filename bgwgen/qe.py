@@ -182,7 +182,6 @@ def create_wfn(config, dirname='.'):
     override = {
         '&control': {
             'calculation': '\'bands\'',
-            'wf_collect': '.true.',
         },
         'K_POINTS': {
             'option': 'crystal',
@@ -224,7 +223,6 @@ def create_wfnq(config, dirname='.'):
     override = {
         '&control': {
             'calculation': '\'bands\'',
-            'wf_collect': '.true.',
         },
         '&system': {
             'nbnd': '',
@@ -250,7 +248,6 @@ def create_wfn_co(config, dirname='.'):
     override = {
         '&control': {
             'calculation': '\'bands\'',
-            'wf_collect': '.true.',
         },
         'K_POINTS': {
             'option': 'crystal',
@@ -285,7 +282,6 @@ def create_wfn_fi(config, dirname='.'):
     override = {
         '&control': {
             'calculation': '\'bands\'',
-            'wf_collect': '.true.',
         },
         'K_POINTS': {
             'option': 'crystal',
@@ -325,7 +321,6 @@ def create_wfnq_fi(config, dirname='.'):
     override = {
         '&control': {
             'calculation': '\'bands\'',
-            'wf_collect': '.true.',
         },
         '&system': {
             'nbnd': '',

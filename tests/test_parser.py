@@ -12,7 +12,6 @@ def test_parse():
         '&control': {
             'prefix': 'MoS2',
             'pseudo_dir': '../pseudo',
-            'wf_collect': '.true.',
         },
         '&system': {
             'ibrav': '4',

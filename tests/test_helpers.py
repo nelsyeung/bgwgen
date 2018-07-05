@@ -10,7 +10,6 @@ def test_deep_merge():
             'calculation': 'bands',
             'prefix': 'MoS2',
             'pseudo_dir': '../pseudo',
-            'wf_collect': '.true.',
         },
         'ATOMIC_SPECIES': {
             'type': 'angstrom',
@@ -29,7 +28,6 @@ def test_deep_merge():
             'calculation': 'scf',
             'prefix': 'MoS2',
             'pseudo_dir': '../pseudo',
-            'wf_collect': '.true.',
             'tprnfor': '.true.',
             'tstress': '.true.',
         },

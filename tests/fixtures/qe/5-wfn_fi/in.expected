@@ -1,6 +1,5 @@
 &control
 calculation = 'bands'
-wf_collect = .true.
 prefix = 'MoS2'
 pseudo_dir = '../pseudo'
 /
