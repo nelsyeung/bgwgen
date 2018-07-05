@@ -356,7 +356,8 @@ def create_wfnq_fi(config, dirname='.'):
 
 
 def create_qe(config, dirname='.'):
-    dirpath = os.path.join(dirname, 'qe')
+    """Create a new directory '1-qe' and all its directories."""
+    dirpath = os.path.join(dirname, '1-qe')
 
     os.makedirs(dirpath)
     create_link_files(config, dirpath)

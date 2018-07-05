@@ -26,7 +26,7 @@ def create_link_files(config, dirname='.'):
 
     with open(file, 'a') as f:
         f.write('#!/bin/bash\n'
-                'QE="../../qe"\n'
+                'QE="../../1-qe"\n'
                 '\n'
                 'ln -sf $QE/2-wfn/WFN 1-epsilon/WFN\n'
                 'ln -sf $QE/3-wfnq/WFN 1-epsilon/WFNq\n'
@@ -141,7 +141,8 @@ def create_absorption(config, dirname='.'):
 
 
 def create_bgw(config, dirname='.'):
-    dirpath = os.path.join(dirname, 'bgw')
+    """Create a new directory '2-bgw' and all its directories."""
+    dirpath = os.path.join(dirname, '2-bgw')
 
     os.makedirs(dirpath)
     create_link_files(config, dirpath)

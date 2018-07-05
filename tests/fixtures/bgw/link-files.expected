@@ -1,5 +1,5 @@
 #!/bin/bash
-QE="../../qe"
+QE="../../1-qe"
 
 ln -sf $QE/2-wfn/WFN 1-epsilon/WFN
 ln -sf $QE/3-wfnq/WFN 1-epsilon/WFNq

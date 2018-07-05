@@ -162,8 +162,8 @@ def test_create_absorption(tmpdir):
 
 
 def test_create_bgw(tmpdir):
-    """Create a new directory 'bgw' and all its directories."""
-    bgwdir = tmpdir.join('bgw')
+    """Create a new directory '2-bgw' and all its directories."""
+    bgwdir = tmpdir.join('2-bgw')
 
     bgw.create_bgw(config, tmpdir.realpath())
 

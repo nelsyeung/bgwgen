@@ -214,8 +214,8 @@ def test_create_wfnq_fi(tmpdir):
 
 
 def test_create_qe(tmpdir):
-    """Create a new directory 'qe' and all its directories."""
-    qedir = tmpdir.join('qe')
+    """Create a new directory '1-qe' and all its directories."""
+    qedir = tmpdir.join('1-qe')
 
     qe.create_qe(config, tmpdir.realpath())
 
