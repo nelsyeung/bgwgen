@@ -48,8 +48,6 @@ config = {
         'cell_slab_truncation': '',
     },
     'sigma': {
-        'band_index_min': '1',
-        'band_index_max': '44',
         'screened_coulomb_cutoff': '5.0',
         'bare_coulomb_cutoff': '45.0',
         'cell_slab_truncation': '',
@@ -65,8 +63,6 @@ config = {
         'screening_semiconductor': '',
     },
     'absorption': {
-        'number_val_bands_coarse': '14',
-        'number_cond_bands_coarse': '14',
         'number_val_bands_fine': '2',
         'number_cond_bands_fine': '2',
         'diagonalization': '',

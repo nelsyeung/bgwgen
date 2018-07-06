@@ -80,6 +80,13 @@ def create_sigma(config, dirname='.'):
     dirpath = os.path.join(dirname, '2-sigma')
     inp = os.path.join(dirpath, 'sigma.inp')
     clean = os.path.join(dirpath, 'clean')
+    override = {
+        'sigma': {
+            'band_index_min': config['pp_in']['vxc_diag_nmin'],
+            'band_index_max': config['pp_in']['vxc_diag_nmax'],
+        },
+    }
+    config = helpers.deep_merge(config, override)
 
     os.makedirs(dirpath)
 
@@ -121,6 +128,13 @@ def create_absorption(config, dirname='.'):
     dirpath = os.path.join(dirname, '4-absorption')
     inp = os.path.join(dirpath, 'absorption.inp')
     clean = os.path.join(dirpath, 'clean')
+    override = {
+        'absorption': {
+            'number_val_bands_coarse': config['kernel']['number_val_bands'],
+            'number_cond_bands_coarse': config['kernel']['number_cond_bands'],
+        },
+    }
+    config = helpers.deep_merge(config, override)
 
     os.makedirs(dirpath)
 
