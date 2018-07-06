@@ -33,6 +33,16 @@ config = {
     'K_POINTS': {
         'value': '12 12 1 1 1 0',
     },
+    'K_POINTS_bands': {
+        'option': 'crystal_b',
+        'value': ('\n'
+                  '4\n'
+                  '0.000 0.000 0.000  50\n'
+                  '0.500 0.000 0.000  50\n'
+                  '0.333 0.333 0.000  50\n'
+                  '0.000 0.000 0.000  0'
+                  )
+    },
     'kgrid': {
         'q-shift': '0.001 0.0 0.0',
         'cell': ('1.0 0.0 0.0\n'
@@ -213,6 +223,21 @@ def test_create_wfnq_fi(tmpdir):
         assert d.join('pp_in').read() == f.read()
 
 
+def test_create_bands(tmpdir):
+    """Creates a new directory '7-bands' and all its input files."""
+    dirname = '7-bands'
+    d = tmpdir.join(dirname)
+    expected_dir = os.path.join(fixtures_dir, dirname)
+
+    qe.create_bands(config, tmpdir.realpath())
+
+    with open(os.path.join(expected_dir, 'in.expected'), 'r') as f:
+        assert d.join('in').read() == f.read()
+
+    with open(os.path.join(expected_dir, 'pp_in.expected'), 'r') as f:
+        assert d.join('pp_in').read() == f.read()
+
+
 def test_create_qe(tmpdir):
     """Create a new directory '1-qe' and all its directories."""
     qedir = tmpdir.join('1-qe')
@@ -228,3 +253,4 @@ def test_create_qe(tmpdir):
     assert os.path.isdir(qedir.join('4-wfn_co'))
     assert os.path.isdir(qedir.join('5-wfn_fi'))
     assert os.path.isdir(qedir.join('6-wfnq_fi'))
+    assert os.path.isdir(qedir.join('7-bands'))

@@ -154,6 +154,27 @@ def create_absorption(config, dirname='.'):
     helpers.make_executable(clean)
 
 
+def create_inteqp(config, dirname='.'):
+    """Create 5-inteqp directory and its input files."""
+    dirpath = os.path.join(dirname, '5-inteqp')
+    inp = os.path.join(dirpath, 'inteqp.inp')
+    clean = os.path.join(dirpath, 'clean')
+
+    os.makedirs(dirpath)
+
+    with open(inp, 'a') as f:
+        f.write(input_block(config, 'inteqp'))
+
+    with open(clean, 'w') as f:
+        f.write('#!/bin/bash\n'
+                'rm *.log *.out bandstructure.dat dtmat* dcmat_norm.dat '
+                'dvmat_norm.dat \\\n'
+                '  eqp.dat eqp_q.dat 2> /dev/null\n'
+                )
+
+    helpers.make_executable(clean)
+
+
 def create_bgw(config, dirname='.'):
     """Create a new directory '2-bgw' and all its directories."""
     dirpath = os.path.join(dirname, '2-bgw')
@@ -164,3 +185,4 @@ def create_bgw(config, dirname='.'):
     create_sigma(config, dirpath)
     create_kernel(config, dirpath)
     create_absorption(config, dirpath)
+    create_inteqp(config, dirpath)

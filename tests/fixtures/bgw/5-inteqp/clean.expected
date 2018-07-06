@@ -1,0 +1,3 @@
+#!/bin/bash
+rm *.log *.out bandstructure.dat dtmat* dcmat_norm.dat dvmat_norm.dat \
+  eqp.dat eqp_q.dat 2> /dev/null

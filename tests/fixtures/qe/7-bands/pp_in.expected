@@ -1,0 +1,4 @@
+&input_pw2bgw
+prefix = 'MoS2'
+wfng_flag = .true.
+/

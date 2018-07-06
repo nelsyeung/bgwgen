@@ -46,7 +46,7 @@ def create_link_files(config, dirname='.'):
         f.write('#!/bin/bash\n')
         f.write('SEED={}\n\n'.format(config['&control']['prefix']))
 
-        f.write('for d in {2..6}-*/; do\n'
+        f.write('for d in {2..7}-*/; do\n'
                 '  cd $d\n'
                 '  rm -rf ${SEED}.save\n'
                 '  mkdir -p ${SEED}.save\n'
@@ -56,12 +56,13 @@ def create_link_files(config, dirname='.'):
                 '${SEED}.save\n'
                 '  cd ..\n'
                 'done\n\n'
-                'for d in {3..6}-*/; do\n'
+                'for d in {3..7}-*/; do\n'
                 '  cd $d\n'
                 '  ln -sf ../2-wfn/clean clean\n'
                 '  ln -sf ../2-wfn/get-kgrid get-kgrid\n'
                 '  cd ..\n'
-                'done\n')
+                'done\n\n'
+                'rm 7-bands/get-kgrid\n')
 
     helpers.make_executable(file)
 
@@ -114,7 +115,7 @@ def create_in(config, dirname='.'):
         f.write(card_block(config, 'K_POINTS'))
 
 
-def create_pp_in(config, dirname='.'):
+def create_pp_in(config, dirname='.', wfng_kgrid=True):
     """Create an 'pp_in' input file following the config."""
     file_in = os.path.join(dirname, 'pp_in')
     k_points = config['K_POINTS']['value'].strip().split()
@@ -126,15 +127,16 @@ def create_pp_in(config, dirname='.'):
     with open(file_in, 'a') as f:
         f.write('&input_pw2bgw\n')
         f.write('prefix = {}\n'.format(config['&control']['prefix']))
-        f.write('wfng_flag = .true.\n'
-                'wfng_kgrid = .true.\n'
-                )
-        f.write('wfng_nk1 = {}\n'.format(nk[0]))
-        f.write('wfng_nk2 = {}\n'.format(nk[1]))
-        f.write('wfng_nk3 = {}\n'.format(nk[2]))
-        f.write('wfng_dk1 = {}\n'.format(dk[0]))
-        f.write('wfng_dk2 = {}\n'.format(dk[1]))
-        f.write('wfng_dk3 = {}\n'.format(dk[2]))
+        f.write('wfng_flag = .true.\n')
+
+        if wfng_kgrid:
+            f.write('wfng_kgrid = .true.\n')
+            f.write('wfng_nk1 = {}\n'.format(nk[0]))
+            f.write('wfng_nk2 = {}\n'.format(nk[1]))
+            f.write('wfng_nk3 = {}\n'.format(nk[2]))
+            f.write('wfng_dk1 = {}\n'.format(dk[0]))
+            f.write('wfng_dk2 = {}\n'.format(dk[1]))
+            f.write('wfng_dk3 = {}\n'.format(dk[2]))
 
         if 'pp_in' in config:
             for key in config['pp_in']:
@@ -350,6 +352,23 @@ def create_wfnq_fi(config, dirname='.'):
     create_in(helpers.deep_merge(config, override), dirpath)
 
 
+def create_bands(config, dirname='.'):
+    """Create 7-bands directory and its input files."""
+    dirpath = os.path.join(dirname, '7-bands')
+    override = {
+        '&control': {
+            'calculation': '\'bands\'',
+        },
+        'K_POINTS': config['K_POINTS_bands'],
+    }
+    in_config = helpers.deep_merge(config, override)
+    in_config.pop('pp_in', None)
+
+    os.makedirs(dirpath)
+    create_pp_in(in_config, dirpath, False)
+    create_in(in_config, dirpath)
+
+
 def create_qe(config, dirname='.'):
     """Create a new directory '1-qe' and all its directories."""
     dirpath = os.path.join(dirname, '1-qe')
@@ -362,3 +381,4 @@ def create_qe(config, dirname='.'):
     create_wfn_co(config, dirpath)
     create_wfn_fi(config, dirpath)
     create_wfnq_fi(config, dirpath)
+    create_bands(config, dirpath)

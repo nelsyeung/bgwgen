@@ -76,7 +76,16 @@ config = {
         'energy_resolution': '0.05',
         'eqp_co_corrections': '',
         'write_eigenvectors': '10',
-    }
+    },
+    'inteqp': {
+        'number_val_bands_coarse': '14',
+        'number_cond_bands_coarse': '14',
+        'number_val_bands_fine': '2',
+        'number_cond_bands_fine': '2',
+        'use_symmetries_coarse_grid': '',
+        'no_symmetries_fine_grid': '',
+        'no_symmetries_shifted_grid': '',
+    },
 }
 
 
@@ -157,6 +166,21 @@ def test_create_absorption(tmpdir):
         assert d.join('clean').read() == f.read()
 
 
+def test_create_inteqp(tmpdir):
+    """Creates a new directory '5-inteqp' and all its input files."""
+    dirname = '5-inteqp'
+    d = tmpdir.join(dirname)
+    expected_dir = os.path.join(fixtures_dir, dirname)
+
+    bgw.create_inteqp(config, tmpdir.realpath())
+
+    with open(os.path.join(expected_dir, 'inteqp.inp.expected'), 'r') as f:
+        assert d.join('inteqp.inp').read() == f.read()
+
+    with open(os.path.join(expected_dir, 'clean.expected'), 'r') as f:
+        assert d.join('clean').read() == f.read()
+
+
 def test_create_bgw(tmpdir):
     """Create a new directory '2-bgw' and all its directories."""
     bgwdir = tmpdir.join('2-bgw')
@@ -170,3 +194,4 @@ def test_create_bgw(tmpdir):
     assert os.path.isdir(bgwdir.join('2-sigma'))
     assert os.path.isdir(bgwdir.join('3-kernel'))
     assert os.path.isdir(bgwdir.join('4-absorption'))
+    assert os.path.isdir(bgwdir.join('5-inteqp'))
