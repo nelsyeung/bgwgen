@@ -11,16 +11,17 @@ def copy_templates(current='.'):
     temp_dir = 'templates'
     temp_current = os.path.join(temp_dir, current)
 
-    for f in os.listdir(temp_current):
-        new_current = os.path.join(current, f)
+    if os.path.isdir(temp_current):
+        for f in os.listdir(temp_current):
+            new_current = os.path.join(current, f)
 
-        if os.path.isdir(os.path.join(temp_current, f)):
-            if not os.path.isdir(new_current):
-                shutil.copytree(os.path.join(temp_current, f), new_current)
-            else:
-                copy_templates(new_current)
-        elif os.path.isfile(os.path.join(temp_current, f)):
-            shutil.copy(os.path.join(temp_current, f), new_current)
+            if os.path.isdir(os.path.join(temp_current, f)):
+                if not os.path.isdir(new_current):
+                    shutil.copytree(os.path.join(temp_current, f), new_current)
+                else:
+                    copy_templates(new_current)
+            elif os.path.isfile(os.path.join(temp_current, f)):
+                shutil.copy(os.path.join(temp_current, f), new_current)
 
 
 if __name__ == "__main__":
