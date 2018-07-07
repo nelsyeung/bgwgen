@@ -114,11 +114,11 @@ def test_create_epsilon(tmpdir):
 
     bgw.create_epsilon(config, tmpdir.realpath())
 
-    with open(os.path.join(expected_dir, 'epsilon.inp.expected'), 'r') as f:
-        assert d.join('epsilon.inp').read() == f.read()
+    with open(os.path.join(expected_dir, '0-setup.sh.expected'), 'r') as f:
+        assert d.join('0-setup.sh').read() == f.read()
 
-    with open(os.path.join(expected_dir, 'clean.expected'), 'r') as f:
-        assert d.join('clean').read() == f.read()
+    with open(os.path.join(expected_dir, 'qpoints.expected'), 'r') as f:
+        assert d.join('qpoints').read() == f.read()
 
 
 def test_create_sigma(tmpdir):

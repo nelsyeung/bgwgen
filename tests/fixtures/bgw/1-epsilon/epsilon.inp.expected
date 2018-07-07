@@ -1,6 +1,0 @@
-epsilon_cutoff 5.0
-cell_slab_truncation
-
-begin qpoints
-0.001 0.0 0.0 1.0 1
-end

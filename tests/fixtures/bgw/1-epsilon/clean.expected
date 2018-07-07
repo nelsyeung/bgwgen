@@ -1,2 +1,0 @@
-#!/bin/bash
-rm chi_converge.dat eps0mat epsmat {kgrid,epsilon}.log *.out 2> /dev/null

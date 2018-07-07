@@ -1,0 +1,57 @@
+#!/bin/bash
+num_kp=$(cat qpoints | wc -l)
+
+# Create epsilon.inp for every kpoints inside the qpoints file
+for i in $(seq 1 $num_kp); do
+	dir="eps$(seq -f "%02g" $i $i)"
+
+	if [[ -z $1 ]]; then
+		mkdir ${dir}
+		cd $dir
+
+		cat > epsilon.inp <<- EOM
+			epsilon_cutoff 5.0
+			cell_slab_truncation
+
+			begin qpoints
+			$(sed -n ${i}p ../qpoints)
+			end
+		EOM
+
+		ln -s ../WFN .
+		ln -s ../WFNq .
+
+		cd ..
+	elif [[ $1 == "clean" ]]; then
+		rm -rf ${dir}
+	fi
+done
+
+# Create an epsmat merge folder
+if [[ -z $1 ]]; then
+	nkp=$((num_kp-1))
+
+	mkdir merge
+	cd merge
+
+	echo "5.0 $nkp" > epsmat_merge.inp
+
+	for i in $(seq 2 $num_kp); do
+		kpoint=$(sed -n ${i}p ../qpoints)
+		echo "${kpoint%?}" >> epsmat_merge.inp
+
+		dir="eps$(seq -f "%02g" $i $i)"
+		epsmat="epsmat$(seq -f "%02g" $i $i)"
+		ln -s ../$dir/epsmat $epsmat
+	done
+
+	echo "$nkp" >> epsmat_merge.inp
+
+	for i in $(seq 2 $num_kp); do
+		epsmat="epsmat$(seq -f "%02g" $i $i)"
+		echo "$epsmat 1" >> epsmat_merge.inp
+	done
+	cd ..
+elif [[ $1 == "clean" ]]; then
+	rm -rf merge
+fi

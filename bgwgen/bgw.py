@@ -55,24 +55,81 @@ def create_link_files(config, dirname='.'):
 def create_epsilon(config, dirname='.'):
     """Create 1-epsilon directory and its input files."""
     dirpath = os.path.join(dirname, '1-epsilon')
-    inp = os.path.join(dirpath, 'epsilon.inp')
-    clean = os.path.join(dirpath, 'clean')
+    setup = os.path.join(dirpath, '0-setup.sh')
+    qpoints = os.path.join(dirpath, 'qpoints')
 
     os.makedirs(dirpath)
 
-    with open(inp, 'a') as f:
-        f.write(input_block(config, 'epsilon'))
-        f.write('\nbegin qpoints\n')
-        f.write(config['kgrid']['q-shift'] + ' 1.0 1\n')
-        f.write('end\n')
+    with open(setup, 'a') as f:
+        f.writelines([
+            '#!/bin/bash\n'
+            'num_kp=$(cat qpoints | wc -l)\n',
+            '\n',
+            '# Create epsilon.inp for every kpoints inside the qpoints file\n',
+            'for i in $(seq 1 $num_kp); do\n',
+            '	dir="eps$(seq -f "%02g" $i $i)"\n',
+            '\n',
+            '	if [[ -z $1 ]]; then\n',
+            '		mkdir ${dir}\n',
+            '		cd $dir\n',
+            '\n',
+            '		cat > epsilon.inp <<- EOM\n',
+        ])
+        f.writelines([
+            '\t\t\t{}\n'.format(x) for x in input_block(
+                config, 'epsilon').split('\n') if x.strip()
+        ])
+        f.writelines([
+            '\n',
+            '			begin qpoints\n',
+            '			$(sed -n ${i}p ../qpoints)\n',
+            '			end\n',
+            '		EOM\n',
+            '\n',
+            '		ln -s ../WFN .\n',
+            '		ln -s ../WFNq .\n',
+            '\n',
+            '		cd ..\n',
+            '	elif [[ $1 == "clean" ]]; then\n',
+            '		rm -rf ${dir}\n',
+            '	fi\n',
+            'done\n',
+            '\n',
+            '# Create an epsmat merge folder\n',
+            'if [[ -z $1 ]]; then\n',
+            '	nkp=$((num_kp-1))\n',
+            '\n',
+            '	mkdir merge\n',
+            '	cd merge\n',
+            '\n',
+            '	echo "{} $nkp" > epsmat_merge.inp\n'.format(
+                config['epsilon']['epsilon_cutoff']),
+            '\n',
+            '	for i in $(seq 2 $num_kp); do\n',
+            '		kpoint=$(sed -n ${i}p ../qpoints)\n',
+            '		echo "${kpoint%?}" >> epsmat_merge.inp\n',
+            '\n',
+            '		dir="eps$(seq -f "%02g" $i $i)"\n',
+            '		epsmat="epsmat$(seq -f "%02g" $i $i)"\n',
+            '		ln -s ../$dir/epsmat $epsmat\n',
+            '	done\n',
+            '\n',
+            '	echo "$nkp" >> epsmat_merge.inp\n',
+            '\n',
+            '	for i in $(seq 2 $num_kp); do\n',
+            '		epsmat="epsmat$(seq -f "%02g" $i $i)"\n',
+            '		echo "$epsmat 1" >> epsmat_merge.inp\n',
+            '	done\n',
+            '	cd ..\n',
+            'elif [[ $1 == "clean" ]]; then\n',
+            '	rm -rf merge\n',
+            'fi\n',
+        ])
 
-    with open(clean, 'w') as f:
-        f.write('#!/bin/bash\n'
-                'rm chi_converge.dat eps0mat epsmat {kgrid,epsilon}.log *.out '
-                '2> /dev/null\n'
-                )
+    with open(qpoints, 'a') as f:
+        f.write('# Replace this file with all the qpoints for epsilon.inp\n')
 
-    helpers.make_executable(clean)
+    helpers.make_executable(setup)
 
 
 def create_sigma(config, dirname='.'):
