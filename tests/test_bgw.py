@@ -1,7 +1,7 @@
 import os
 from bgwgen import bgw
 
-fixtures_dir = os.path.join('tests', 'fixtures', 'bgw')
+fixtures_dir = os.path.join('tests', 'fixtures', '2-bgw')
 
 config = {
     '&control': {

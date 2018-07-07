@@ -2,7 +2,7 @@ import copy
 import os
 from bgwgen import qe
 
-fixtures_dir = os.path.join('tests', 'fixtures', 'qe')
+fixtures_dir = os.path.join('tests', 'fixtures', '1-qe')
 
 config = {
     '&control': {
