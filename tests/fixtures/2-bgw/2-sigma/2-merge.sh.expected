@@ -1,0 +1,8 @@
+#!/bin/bash
+num_kp=$(cat kgrid | wc -l)
+
+for i in $(seq 1 $num_kp); do
+	dir="sig$(seq -f "%02g" $i $i)"
+	cat $dir/eqp0.dat >> eqp0.dat
+	cat $dir/eqp1.dat >> eqp1.dat
+done

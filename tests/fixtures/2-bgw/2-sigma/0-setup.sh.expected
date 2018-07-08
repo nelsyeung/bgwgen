@@ -1,0 +1,35 @@
+#!/bin/bash
+num_kp=$(cat kpoints | wc -l)
+
+# Create sigma.inp for every kpoints inside the kpoints file
+for i in $(seq 1 $num_kp); do
+	dir="sig$(seq -f "%02g" $i $i)"
+
+	if [[ -z $1 ]]; then
+		mkdir ${dir}
+		cd $dir
+
+		cat > sigma.inp <<- EOM
+			band_index_min 1
+			band_index_max 44
+			screened_coulomb_cutoff 5.0
+			bare_coulomb_cutoff 45.0
+			cell_slab_truncation
+			screening_semiconductor
+
+			begin kpoints
+			$(sed -n ${i}p ../kpoints)
+			end
+		EOM
+
+		ln -s ../RHO .
+		ln -s ../WFN_inner .
+		ln -s ../eps0mat .
+		ln -s ../epsmat .
+		ln -s ../vxc.dat .
+
+		cd ..
+	elif [[ $1 == "clean" ]]; then
+		rm -rf ${dir}
+	fi
+done

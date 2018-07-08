@@ -135,8 +135,9 @@ def create_epsilon(config, dirname='.'):
 def create_sigma(config, dirname='.'):
     """Create 2-sigma directory and its input files."""
     dirpath = os.path.join(dirname, '2-sigma')
-    inp = os.path.join(dirpath, 'sigma.inp')
-    clean = os.path.join(dirpath, 'clean')
+    setup = os.path.join(dirpath, '0-setup.sh')
+    kpoints = os.path.join(dirpath, 'kpoints')
+    merge = os.path.join(dirpath, '2-merge.sh')
     override = {
         'sigma': {
             'band_index_min': config['pp_in']['vxc_diag_nmin'],
@@ -147,18 +148,62 @@ def create_sigma(config, dirname='.'):
 
     os.makedirs(dirpath)
 
-    with open(inp, 'a') as f:
-        f.write(input_block(config, 'sigma'))
-        f.write('\nbegin kpoints\n')
-        f.write('end\n')
+    with open(setup, 'a') as f:
+        f.writelines([
+            '#!/bin/bash\n'
+            'num_kp=$(cat kpoints | wc -l)\n',
+            '\n',
+            '# Create sigma.inp for every kpoints inside the kpoints file\n',
+            'for i in $(seq 1 $num_kp); do\n',
+            '	dir="sig$(seq -f "%02g" $i $i)"\n',
+            '\n',
+            '	if [[ -z $1 ]]; then\n',
+            '		mkdir ${dir}\n',
+            '		cd $dir\n',
+            '\n',
+            '		cat > sigma.inp <<- EOM\n',
+        ])
+        f.writelines([
+            '\t\t\t{}\n'.format(x) for x in input_block(
+                config, 'sigma').split('\n') if x.strip()
+        ])
+        f.writelines([
+            '\n',
+            '			begin kpoints\n',
+            '			$(sed -n ${i}p ../kpoints)\n',
+            '			end\n',
+            '		EOM\n',
+            '\n',
+            '		ln -s ../RHO .\n',
+            '		ln -s ../WFN_inner .\n',
+            '		ln -s ../eps0mat .\n',
+            '		ln -s ../epsmat .\n',
+            '		ln -s ../vxc.dat .\n',
+            '\n',
+            '		cd ..\n',
+            '	elif [[ $1 == "clean" ]]; then\n',
+            '		rm -rf ${dir}\n',
+            '	fi\n',
+            'done\n',
+        ])
 
-    with open(clean, 'w') as f:
-        f.write('#!/bin/bash\n'
-                'rm eqp*.dat chi*.dat x.dat *.{log,out} ch_converge.dat 2> '
-                '/dev/null\n'
-                )
+    with open(kpoints, 'a') as f:
+        f.write('# Replace this file with all the kpoints for sigma.inp\n')
 
-    helpers.make_executable(clean)
+    with open(merge, 'a') as f:
+        f.writelines([
+            '#!/bin/bash\n',
+            'num_kp=$(cat kgrid | wc -l)\n',
+            '\n',
+            'for i in $(seq 1 $num_kp); do\n',
+            '	dir="sig$(seq -f "%02g" $i $i)"\n',
+            '	cat $dir/eqp0.dat >> eqp0.dat\n',
+            '	cat $dir/eqp1.dat >> eqp1.dat\n',
+            'done\n',
+        ])
+
+    helpers.make_executable(setup)
+    helpers.make_executable(merge)
 
 
 def create_kernel(config, dirname='.'):
