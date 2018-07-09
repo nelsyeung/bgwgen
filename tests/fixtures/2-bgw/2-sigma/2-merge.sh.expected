@@ -1,5 +1,5 @@
 #!/bin/bash
-num_kp=$(cat kgrid | wc -l)
+num_kp=$(cat kpoints | wc -l)
 
 for i in $(seq 1 $num_kp); do
 	dir="sig$(seq -f "%02g" $i $i)"

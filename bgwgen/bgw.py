@@ -193,7 +193,7 @@ def create_sigma(config, dirname='.'):
     with open(merge, 'a') as f:
         f.writelines([
             '#!/bin/bash\n',
-            'num_kp=$(cat kgrid | wc -l)\n',
+            'num_kp=$(cat kpoints | wc -l)\n',
             '\n',
             'for i in $(seq 1 $num_kp); do\n',
             '	dir="sig$(seq -f "%02g" $i $i)"\n',
