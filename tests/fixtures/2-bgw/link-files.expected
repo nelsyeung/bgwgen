@@ -7,9 +7,11 @@ ln -sf $QE/4-wfn_co/RHO 2-sigma/RHO
 ln -sf $QE/4-wfn_co/WFN 2-sigma/WFN_inner
 ln -sf $QE/4-wfn_co/WFN 3-kernel/WFN_co
 ln -sf $QE/4-wfn_co/WFN 4-absorption/WFN_co
+ln -sf $QE/4-wfn_co/WFN 5-inteqp/WFN_co
 ln -sf $QE/4-wfn_co/vxc.dat 2-sigma/vxc.dat
 ln -sf $QE/5-wfn_fi/WFN 4-absorption/WFN_fi
 ln -sf $QE/6-wfnq_fi/WFN 4-absorption/WFNq_fi
+ln -sf $QE/7-bands/WFN 5-inteqp/WFN_fi
 
 ln -sf ../1-epsilon/eps0mat 2-sigma
 ln -sf ../1-epsilon/eps0mat 3-kernel
@@ -18,5 +20,6 @@ ln -sf ../1-epsilon/epsmat 2-sigma
 ln -sf ../1-epsilon/epsmat 3-kernel
 ln -sf ../1-epsilon/epsmat 4-absorption
 ln -sf ../2-sigma/eqp1.dat 4-absorption/eqp_co.dat
+ln -sf ../2-sigma/eqp1.dat 5-inteqp/eqp_co.dat
 ln -sf ../3-kernel/bsedmat 4-absorption
 ln -sf ../3-kernel/bsexmat 4-absorption
