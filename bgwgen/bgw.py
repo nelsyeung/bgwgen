@@ -124,6 +124,9 @@ def create_epsilon(config, dirname='.'):
             'elif [[ $1 == "clean" ]]; then\n',
             '	rm -rf merge\n',
             'fi\n',
+            '\n',
+            'ln -sf eps01/eps0mat .\n',
+            'ln -sf merge/epsmat .\n',
         ])
 
     with open(qpoints, 'a') as f:

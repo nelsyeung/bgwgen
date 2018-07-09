@@ -55,3 +55,6 @@ if [[ -z $1 ]]; then
 elif [[ $1 == "clean" ]]; then
 	rm -rf merge
 fi
+
+ln -sf eps01/eps0mat .
+ln -sf merge/epsmat .
