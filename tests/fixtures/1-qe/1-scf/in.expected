@@ -1,7 +1,5 @@
 &control
 calculation = 'scf'
-tprnfor = .true.
-tstress = .true.
 prefix = 'MoS2'
 pseudo_dir = '../pseudo'
 /
